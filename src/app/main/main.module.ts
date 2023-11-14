@@ -29,8 +29,9 @@ const routes: Routes = [
         component: WomenComponent,
       },
       {
-        path: '**',
+        path: '',
         redirectTo: 'home',
+        pathMatch: 'full'
       },
     ],
   },

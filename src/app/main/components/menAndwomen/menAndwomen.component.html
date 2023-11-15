@@ -1,0 +1,9 @@
+<p *ngIf="data.length">{{ pageTitle }} works!</p>
+<div *ngIf="!data.length">
+  <mat-card>
+    <mat-card-header><h2>No Items Found</h2></mat-card-header>
+    <mat-card-content>
+      <button (click) = 'onBack()' mat-flat-button color="accent">+ Add</button>
+    </mat-card-content>
+  </mat-card>
+</div>

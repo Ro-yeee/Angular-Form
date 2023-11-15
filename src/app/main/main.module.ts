@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 import { HomeComponent } from './components/home/home.component';
-import { MenComponent } from './components/men/men.component';
-import { WomenComponent } from './components/women/women.component';
+import { MenAndWomenComponent } from './components/men&Women/men&women.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 const routes: Routes = [
@@ -22,23 +21,30 @@ const routes: Routes = [
       },
       {
         path: 'men',
-        component: MenComponent,
+        component: MenAndWomenComponent,
+        data: { title: 'men' },
       },
       {
         path: 'women',
-        component: WomenComponent,
+        component: MenAndWomenComponent,
+        data: { title: 'women' },
       },
       {
         path: '',
         redirectTo: 'home',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
     ],
   },
 ];
 
 @NgModule({
-  declarations: [MenComponent, WomenComponent,NavbarComponent,MainComponent,HomeComponent],
+  declarations: [
+    MenAndWomenComponent,
+    NavbarComponent,
+    MainComponent,
+    HomeComponent,
+  ],
   imports: [
     CommonModule,
     MatIconModule,

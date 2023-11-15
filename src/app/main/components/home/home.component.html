@@ -1,4 +1,41 @@
 <mat-card>
-  <mat-card-header><h2>No of people</h2></mat-card-header>
-  <mat-card-content>Simple card</mat-card-content>
+  <mat-card-header><h2>Student Count</h2></mat-card-header>
+  <mat-card-content>
+    <form
+      class="form-container"
+      #inputForm="ngForm"
+      (ngSubmit)="addStudents(inputForm)"
+    >
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Enter</mat-label>
+        <input
+          matInput
+          type="number"
+          name="studentCount"
+          [(ngModel)]="count"
+          required
+          min="2"
+          #studentCountVar="ngModel"
+        />
+
+        <mat-hint
+          *ngIf="
+            (studentCountVar?.touched || studentCountVar?.dirty) &&
+            studentCountVar?.value % 2 !== 0
+          "
+          >Enter a even number
+        </mat-hint>
+      </mat-form-field>
+      <div class="button-container">
+        <button
+          mat-flat-button
+          color="accent"
+          type="submit"
+          [disabled]="!inputForm?.valid || studentCountVar?.value % 2 !== 0"
+        >
+          Create
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
 </mat-card>

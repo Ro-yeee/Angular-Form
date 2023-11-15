@@ -1,5 +1,18 @@
-mat-card{
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+mat-card {
+  max-width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-container {
+  display: flex;
+  gap: 10px;
+}
+
+.button-container button {
+  height: 56px;
+}
+
+mat-hint{
+  color: red;
 }

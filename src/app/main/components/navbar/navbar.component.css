@@ -3,6 +3,11 @@ mat-toolbar {
   justify-content: space-between;
 }
 
-button.active{
-    background-color: black;
+div {
+  display: flex;
+  gap: 10px;
+}
+
+button.active {
+  background-color: black;
 }

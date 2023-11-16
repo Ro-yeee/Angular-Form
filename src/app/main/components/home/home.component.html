@@ -3,27 +3,18 @@
   <mat-card-content>
     <form
       class="form-container"
-      #inputForm="ngForm"
-      (ngSubmit)="addStudents(inputForm)"
+      [formGroup]="inputForm"
+      (ngSubmit)="addStudents()"
     >
       <mat-form-field color="accent" appearance="outline">
         <mat-label>Enter</mat-label>
-        <input
-          matInput
-          type="number"
-          name="studentCount"
-          [(ngModel)]="count"
-          required
-          min="2"
-          #studentCountVar="ngModel"
-        />
+        <input matInput type="number" formControlName="studentCount" />
 
-        <mat-hint
-          *ngIf="
-            (studentCountVar?.touched || studentCountVar?.dirty) &&
-            studentCountVar?.value % 2 !== 0
-          "
+        <mat-hint *ngIf="inputForm?.get('studentCount')?.errors?.['isodd']"
           >Enter a even number
+        </mat-hint>
+        <mat-hint *ngIf="inputForm?.get('studentCount')?.errors?.['min']"
+          >Should be grater than {{ totalStudents }}
         </mat-hint>
       </mat-form-field>
       <div class="button-container">
@@ -31,7 +22,7 @@
           mat-flat-button
           color="accent"
           type="submit"
-          [disabled]="!inputForm?.valid || studentCountVar?.value % 2 !== 0"
+          [disabled]="!inputForm.valid"
         >
           Create
         </button>

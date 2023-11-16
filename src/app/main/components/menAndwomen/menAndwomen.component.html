@@ -13,7 +13,29 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <p>This is the primary content of the panel.</p>
+      <form [formGroup]="person?.data">
+        <div
+          formArrayName="content"
+          *ngFor="
+            let item of person?.data?.get('content').controls;
+            let i = index
+          "
+        >
+          <div class="form-group" [formGroupName]="i">
+            <mat-form-field color="accent" appearance="outline">
+              <mat-label>Enter Field</mat-label>
+              <input matInput type="text" formControlName="field" />
+            </mat-form-field>
+            <mat-form-field color="accent" appearance="outline">
+              <mat-label>Enter Value</mat-label>
+              <input matInput type="text" formControlName="value" />
+            </mat-form-field>
+          </div>
+        </div>
+        <button type="button" (click)="handleFieldCreation(person?.id)" mat-flat-button color="accent" class="Add">
+          +
+        </button>
+      </form>
     </mat-expansion-panel>
   </mat-accordion>
 
@@ -21,7 +43,13 @@
     <mat-card>
       <mat-card-header><h2>No Items Found</h2></mat-card-header>
       <mat-card-content>
-        <button (click)="onBack()" mat-flat-button color="accent">+ Add</button>
+        <button
+          (click)="onBack()"
+          mat-flat-button
+          color="accent"
+        >
+          + Add
+        </button>
       </mat-card-content>
     </mat-card>
   </div>

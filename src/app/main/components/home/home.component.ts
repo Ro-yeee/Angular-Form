@@ -1,31 +1,48 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
+
+function isOdd(c: AbstractControl): { [key: string]: boolean } | null {
+  if (c.value !== null && c.value % 2 !== 0) {
+    return { isodd: true };
+  }
+  return null;
+}
 
 @Component({
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnChanges, OnInit {
-  constructor(private dataService: DataService, private router: Router) {}
+export class HomeComponent implements OnInit {
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
 
-  count!: number;
   totalStudents = this.dataService.getStudentCount();
-
-  addStudents(inputForm: NgForm) {
-    this.dataService.createStudents(
-      inputForm?.form?.value?.studentCount - this.totalStudents
-    );
-    this.count = 0;
-    this.router.navigate(['/boys']);
-  }
+  inputForm!: FormGroup;
 
   ngOnInit(): void {
-    this.count = this.dataService.getStudentCount();
+    this.inputForm = this.fb.group({
+      studentCount: [
+        this.totalStudents,
+        [Validators.required, Validators.min(this.totalStudents), isOdd],
+      ],
+    });
   }
 
-  ngOnChanges(): void {
-    console.log(this.count);
+  addStudents() {
+    this.dataService.createStudents(
+      this.inputForm?.value?.studentCount - this.totalStudents
+    );
+    this.router.navigate(['/boys']);
   }
 }

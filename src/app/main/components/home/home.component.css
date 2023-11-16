@@ -2,6 +2,8 @@ mat-card {
   max-width: max-content;
   margin-left: auto;
   margin-right: auto;
+  height: max-content;
+  padding: 10px;
 }
 
 .form-container {

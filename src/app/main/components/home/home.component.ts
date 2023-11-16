@@ -7,22 +7,22 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnChanges {
+export class HomeComponent implements OnChanges, OnInit {
   constructor(private dataService: DataService, private router: Router) {}
 
-  private _count!: number;
-  get count(): number {
-    return this._count;
-  }
+  count!: number;
+  totalStudents = this.dataService.getStudentCount();
 
-  set count(value: number) {
-    this._count = value;
-  }
-
-  addStudents(data: NgForm) {
-    this.dataService.createStudents(data?.form?.value?.studentCount);
+  addStudents(inputForm: NgForm) {
+    this.dataService.createStudents(
+      inputForm?.form?.value?.studentCount - this.totalStudents
+    );
     this.count = 0;
-    this.router.navigate(['/boys'])
+    this.router.navigate(['/boys']);
+  }
+
+  ngOnInit(): void {
+    this.count = this.dataService.getStudentCount();
   }
 
   ngOnChanges(): void {

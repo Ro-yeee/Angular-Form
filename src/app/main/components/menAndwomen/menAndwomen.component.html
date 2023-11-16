@@ -1,12 +1,10 @@
 <div class="container">
   <mat-accordion *ngIf="persons?.length">
-    <h2>Total {{ pageTitle }}: {{ persons.length }}</h2>
+    <h2>Total {{pageTitle}}: {{persons.length}}</h2>
     <mat-expansion-panel *ngFor="let person of persons">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <mat-icon [color]="pageTitle === 'boys' ? 'primary' : 'accent'"
-            >person</mat-icon
-          >
+          <mat-icon [color]="pageTitle === 'boys' ? 'primary': 'accent'">person</mat-icon>
         </mat-panel-title>
         <mat-panel-description>
           <!-- This is a summary of the content -->

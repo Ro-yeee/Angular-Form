@@ -14,8 +14,12 @@ export class DataService {
     }
   }
 
-  getStudents(type: string) {
+  getStudents(type: string): any[] {
     if (type === 'men') return this.boys;
     else return this.girls;
+  }
+
+  getStudentCount(): number{
+    return this.girls.length + this.boys.length
   }
 }

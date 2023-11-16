@@ -14,7 +14,7 @@
           name="studentCount"
           [(ngModel)]="count"
           required
-          min="2"
+          [min]="totalStudents"
           #studentCountVar="ngModel"
         />
 
@@ -24,6 +24,13 @@
             studentCountVar?.value % 2 !== 0
           "
           >Enter a even number
+        </mat-hint>
+        <mat-hint
+          *ngIf="
+            (studentCountVar?.touched || studentCountVar?.dirty) &&
+            studentCountVar?.errors
+          "
+          >Cannot be less than {{ totalStudents }}
         </mat-hint>
       </mat-form-field>
       <div class="button-container">

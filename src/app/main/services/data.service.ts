@@ -37,11 +37,26 @@ export class DataService {
     }
   }
 
-  getStudentsApi() {
+  getStudents(type: string): any[] {
+    if (type === 'boys') return this.boys;
+    else return this.girls;
+  }
+
+  getStudentCount(): Observable<number> {
+    return of (this.girls.length + this.boys.length);
+  }
+
+  private createFields(): FormGroup {
+    return this.fb.group({ field: '', value: '' });
+  }
+
+  //--------------HTTP DATA GET------------------
+
+  getStudentsApi(): Observable<any> {
     return this.http.get('http://localhost:3000/data').pipe(
       tap(data  => this.saveApiData(data)),
       catchError(err => {
-        console.log(err);
+        console.error(err);
         return err;
       })
     );
@@ -49,7 +64,7 @@ export class DataService {
 
   saveApiData(data: any) {
     this.boys = [
-      ...data.boys.map((boy: any) => ({
+      ...data?.boys?.map((boy: any) => ({
         id: boy?.id,
         data: this.fb.group({
           content: this.fb.array([
@@ -64,7 +79,7 @@ export class DataService {
       })),
     ];
     this.girls = [
-      ...data.girls.map((girl: any) => ({
+      ...data?.girls?.map((girl: any) => ({
         id: girl?.id,
         data: this.fb.group({
           content: this.fb.array([
@@ -78,22 +93,9 @@ export class DataService {
         }),
       })),
     ];
-    console.log(this.boys)
-    console.log(this.girls)
   }
 
-  getStudents(type: string): any[] {
-    if (type === 'boys') return this.boys;
-    else return this.girls;
-  }
-
-  getStudentCount(): Observable<number> {
-    return of (this.girls.length + this.boys.length);
-  }
-
-  private createFields(): FormGroup {
-    return this.fb.group({ field: '', value: '' });
-  }
+   //--------------HTTP DATA POST------------------
 
   Submit(): Observable<any> {
     let allBoys = this.boys.map((boy) => {
@@ -104,6 +106,6 @@ export class DataService {
     });
     let finalData = { boys: allBoys, girls: allGirls };
 
-    return this.http.post('http://localhost:3000/data', finalData);
+    return this.http.post('http://localhost:3000/data',finalData);
   }
 }

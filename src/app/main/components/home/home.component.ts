@@ -19,23 +19,26 @@ function isOdd(c: AbstractControl): { [key: string]: boolean } | null {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit,OnChanges {
+export class HomeComponent implements OnInit, OnChanges {
   constructor(
     private dataService: DataService,
     private router: Router,
     private fb: FormBuilder
   ) {}
 
-  public totalStudents!: number
+  public totalStudents!: number;
   inputForm!: FormGroup;
 
-  ngOnChanges(): void{
-    this.dataService.getStudentCount().subscribe(data => this.totalStudents = data);
+  ngOnChanges(): void {
+    this.dataService
+      .getStudentCount()
+      .subscribe((data) => (this.totalStudents = data));
   }
 
   ngOnInit(): void {
-    this.dataService.getStudentCount().subscribe(data => this.totalStudents = data);
-    // this.dataService.getStudentsApi()
+    this.dataService
+      .getStudentCount()
+      .subscribe((data) => (this.totalStudents = data));
     this.inputForm = this.fb.group({
       studentCount: [
         this.totalStudents,
@@ -53,8 +56,8 @@ export class HomeComponent implements OnInit,OnChanges {
 
   handleSubmit(): void {
     this.dataService.Submit().subscribe({
-      next: () => alert("Data Submitted Successfully"),
-      error: (err) => alert("Served Down, Please Try again"),
+      next: () => alert('Data Submitted Successfully'),
+      error: (err) => alert('Served Down, Please Try again'),
     });
   }
 }

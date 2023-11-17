@@ -21,7 +21,6 @@ export class MenAndWomenComponent implements OnInit {
   ngOnInit(): void {
     this.pageTitle = this.route.snapshot.data['title'];
     this.persons = this.dataService.getStudents(this.pageTitle);
-    // console.log(this.persons);
   }
 
   onBack(): void {
@@ -29,16 +28,6 @@ export class MenAndWomenComponent implements OnInit {
   }
 
   handleFieldCreation(personId: string) {
-    // this.dataService.addFiled(personId,this.pageTitle)
-
-    // this.persons.forEach((person) =>
-    //   person.id === personId
-    //     ? person.data.value.content.push(
-    //         this.fb.group({ field: '', value: '' })
-    //       )
-    //     : null
-    // );
-
     this.persons.forEach((person) => {
       if (person.id === personId) {
         (person.data.get('content') as FormArray).push(

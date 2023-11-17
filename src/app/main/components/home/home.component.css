@@ -18,3 +18,10 @@ mat-card {
 mat-hint{
   color: red;
 }
+
+.submit-Container{
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

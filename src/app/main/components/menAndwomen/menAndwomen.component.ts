@@ -17,19 +17,18 @@ export class MenAndWomenComponent implements OnInit {
 
   pageTitle!: string;
   persons: any[] = [];
-  panelOpenState = false;
 
   ngOnInit(): void {
     this.pageTitle = this.route.snapshot.data['title'];
     this.persons = this.dataService.getStudents(this.pageTitle);
-    console.log(this.persons);
+    // console.log(this.persons);
   }
 
   onBack(): void {
     this.router.navigate(['/home']);
   }
 
-  handleFieldCreation(personId: number) {
+  handleFieldCreation(personId: string) {
     // this.dataService.addFiled(personId,this.pageTitle)
 
     // this.persons.forEach((person) =>
@@ -47,6 +46,5 @@ export class MenAndWomenComponent implements OnInit {
         );
       }
     });
-    console.log(this.persons);
   }
 }

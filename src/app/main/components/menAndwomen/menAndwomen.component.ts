@@ -17,29 +17,17 @@ export class MenAndWomenComponent implements OnInit {
 
   pageTitle!: string;
   persons: any[] = [];
-  panelOpenState = false;
 
   ngOnInit(): void {
     this.pageTitle = this.route.snapshot.data['title'];
     this.persons = this.dataService.getStudents(this.pageTitle);
-    console.log(this.persons);
   }
 
   onBack(): void {
     this.router.navigate(['/home']);
   }
 
-  handleFieldCreation(personId: number) {
-    // this.dataService.addFiled(personId,this.pageTitle)
-
-    // this.persons.forEach((person) =>
-    //   person.id === personId
-    //     ? person.data.value.content.push(
-    //         this.fb.group({ field: '', value: '' })
-    //       )
-    //     : null
-    // );
-
+  handleFieldCreation(personId: string) {
     this.persons.forEach((person) => {
       if (person.id === personId) {
         (person.data.get('content') as FormArray).push(
@@ -47,6 +35,5 @@ export class MenAndWomenComponent implements OnInit {
         );
       }
     });
-    console.log(this.persons);
   }
 }

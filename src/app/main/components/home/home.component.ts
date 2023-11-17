@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -19,7 +19,7 @@ function isOdd(c: AbstractControl): { [key: string]: boolean } | null {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit, OnChanges {
+export class HomeComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private router: Router,
@@ -29,16 +29,8 @@ export class HomeComponent implements OnInit, OnChanges {
   public totalStudents!: number;
   inputForm!: FormGroup;
 
-  ngOnChanges(): void {
-    this.dataService
-      .getStudentCount()
-      .subscribe((data) => (this.totalStudents = data));
-  }
-
   ngOnInit(): void {
-    this.dataService
-      .getStudentCount()
-      .subscribe((data) => (this.totalStudents = data));
+    this.totalStudents = this.dataService.getStudentCount();
     this.inputForm = this.fb.group({
       studentCount: [
         this.totalStudents,

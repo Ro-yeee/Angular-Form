@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { v4 as uuid } from 'uuid';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -42,8 +42,8 @@ export class DataService {
     else return this.girls;
   }
 
-  getStudentCount(): Observable<number> {
-    return of (this.girls.length + this.boys.length);
+  getStudentCount(): number {
+    return this.girls.length + this.boys.length;
   }
 
   private createFields(): FormGroup {
